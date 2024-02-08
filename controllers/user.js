@@ -1,6 +1,7 @@
 const user = require('../models/user');
 const url = require('../models/url');
 const {setUser } = require('../service/auth');
+const bcryptjs = require('bcryptjs');
 
 
 async function handleUerSingUp(req,res) {
@@ -27,13 +28,11 @@ async function handleUserLogin(req,res){
 
     const {email,password} = req.body;
     
-
     try {
-        const data = await user.findOne({email,password});
-        if(data===null){
+        const data = await user.findOne({email});
+        if(data===null || !(await bcryptjs.compare(password , data.password))){
             return res.json({message : "User Not Found" , error : 1});
         }
-
 
         const token = setUser(data);
         res.cookie("uid", token);
