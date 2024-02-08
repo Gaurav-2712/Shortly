@@ -4,7 +4,11 @@ const URL = require('../models/url');
 const router = express.Router();
 
 router.get('/',async(req,res)=>{
-    res.render('index');
+    if(req.user===null)
+    return res.render('index');
+
+    res.render('index',{id : req.user._id})
+    
 })
 
 router.get('/login',(req,res)=>{
