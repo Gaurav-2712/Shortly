@@ -3,6 +3,7 @@ const express = require("express");
 const { connectToMongoDB } = require("./connect");
 const { checkAuth } = require("./middlewares/auth.js");
 const cookieParser = require("cookie-parser");
+const compression = require('compression');
 
 const urlRoute = require("./routes/url");
 const staticRoute = require('./routes/StaticRoute');
@@ -25,6 +26,7 @@ app.set('ejs',path.resolve('./views'))
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
+app.use(compression());
 
 const staticPath = path.join(__dirname,"./public")
 app.use(express.static(staticPath)); 
