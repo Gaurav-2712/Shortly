@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./views/*.ejs'],
+  purge : {
+    enabled: true,
+    preserveHtmlElements: false,
+    content: [ "./views/*.ejs" ]
+  },
   theme: {
     extend: {
       colors: {
